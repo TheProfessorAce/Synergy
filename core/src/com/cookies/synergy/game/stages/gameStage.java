@@ -202,14 +202,14 @@ public class gameStage extends Stage implements ContactListener {
     }
 
     private void setupMap() {
-        map = assetManager.manager.get(constants.LEVEL1_MAP);
+        map = assetManager.manager.get(constants.LEVEL2_MAP);
         renderer = new Box2DDebugRenderer();
         parser.load(world, map);
         mapRenderer = new OrthogonalTiledMapRenderer(map, parser.getUnitScale());
 
         Random generator = new Random();
 
-        for(int x=0;x<constants.NUMBER_OF_POWERUPS_1;x++) {
+        for(int x=0;x<constants.NUMBER_OF_POWERUPS_2;x++) {
             setupPowerUps(parser.getBodies().get(x+"").getPosition().x, parser.getBodies().get(x+"").getPosition().y, generator.nextInt(3));
         }
     }
