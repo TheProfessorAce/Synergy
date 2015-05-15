@@ -44,7 +44,7 @@ public class loadingStage extends Stage{
     public void act(float delta) {
         super.act(delta);
         if(assetManager.isLoaded()) {
-            main.setScreen(new gameScreen());
+            main.setScreen(new gameScreen(main));
         }
 
     }

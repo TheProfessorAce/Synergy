@@ -1,5 +1,6 @@
 package com.cookies.synergy.game.screens;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
@@ -9,8 +10,8 @@ public class gameScreen implements Screen {
 
     private gameStage stage;
 
-    public gameScreen() {
-        stage = new gameStage();
+    public gameScreen(Game game) {
+        stage = new gameStage(game);
     }
 
     @Override

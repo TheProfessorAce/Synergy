@@ -1,5 +1,6 @@
 package com.cookies.synergy.game.stages;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.audio.Music;
@@ -32,7 +33,6 @@ import com.cookies.synergy.game.utils.assetManager;
 import com.cookies.synergy.game.utils.bodyUtils;
 import com.cookies.synergy.game.utils.constants;
 import com.cookies.synergy.game.utils.worldUtils;
-import com.sun.jmx.snmp.tasks.Task;
 
 import net.dermetfan.gdx.graphics.g2d.Box2DSprite;
 import net.dermetfan.gdx.physics.box2d.Box2DMapObjectParser;
@@ -48,6 +48,8 @@ public class gameStage extends Stage implements ContactListener {
     private Charge charge;
     private ChargeField chargefield;
     private PowerUp powerUp;
+
+    private Game game;
 
     private PowerUp compareUp;
 
@@ -89,7 +91,7 @@ public class gameStage extends Stage implements ContactListener {
 
     private OrthogonalTiledMapRenderer mapRenderer;
     private TiledMap map;
-    private Box2DMapObjectParser parser = new Box2DMapObjectParser((1/8f));
+    private Box2DMapObjectParser parser = new Box2DMapObjectParser((1/16f));
     private boolean debug;
 
     private BitmapFont font;
@@ -123,7 +125,9 @@ public class gameStage extends Stage implements ContactListener {
     private boolean initDone = false;
     private boolean tempBool = false;
 
-    public gameStage() {
+    public gameStage(Game game) {
+        this.game = game;
+
         setupCamera();
 
         hudStage = new Stage(new ExtendViewport(constants.appWidth, constants.appHeight, hudCamera));
