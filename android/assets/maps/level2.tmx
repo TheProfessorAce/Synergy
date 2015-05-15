@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="32" tileheight="32" nextobjectid="41">
+ <tileset firstgid="1" name="Tiles" tilewidth="32" tileheight="32">
+  <tile id="0">
+   <image width="32" height="32" source="../tilemap/bg.png"/>
+  </tile>
+  <tile id="1">
+   <image width="32" height="32" source="../tilemap/finishLine.png"/>
+  </tile>
+  <tile id="2">
+   <image width="32" height="32" source="../tilemap/tile.png"/>
+  </tile>
+ </tileset>
+ <layer name="Tile Layer 1" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt0kFyg0AMBVEc3//O2btSDjAapv+oF70DLOn5fRzH28wstJ8vfT77sn8b9bjy7dW7pqQHKz146cFKD1Z6sEr1uDJXxbNVtyF4zNhPDz300IPokZYenEYsRm6ox3WLmXfUY77HlVvqce2udz3O3lMPPcjpwUoPVnqw0oOVHqz0YKUHK7JHRxO6RzeT1R6a8Dw04XlowvPQhOdx9tupVexf9Y4m525E9NDkmd/R5PydNNFEk+d3rzKp8Bt9dsadnv4/6sEy0aPuRnqwPCp+V4/6G6V5UJp5Iz30SE8PVnqw0oOVHqz0YKUHKz0YPXEjPebdSY9sCz1499Gj9jZp/imtuokeHAs9WBZ6sCz0YFnowbLQg7d7Zw/i7sSZyBZ6cHbWg7OvHoxd/3qPNmOix8iOeqzf8dv7tFmTPCp2u7P73bvu7LFyLz04FnqwLPRgWejBstCDt0NnD+L8XT2os3f0IM99d6ZOHtTZdvEgm3T1uLsDaabdPEb2ILSjR7LJrh6pJjt7JJrs7pFm0sEjyaSLR4pJJ48Ek24eSenBSg9WephZl34BqM1YUA==
+  </data>
+ </layer>
+ <objectgroup name="box2D">
+  <object id="1" name="ground1" type="object" x="512" y="96">
+   <polyline points="0,0 0,256 512,256 512,352 672,352 672,224 864,224 864,352 1024,352 1024,224 1216,224 1216,352 1376,352 1376,224 1920,224 1920,384 1888,384 1888,416 1856,416 1856,480 1824,480 1824,992 1856,992 1856,1056 1888,1056 1888,1088 1920,1088 1920,1120 1952,1120 1952,1152 1984,1152 1984,1184 2016,1184 2016,1216 2048,1216 2048,1248 2080,1248 2080,1280 2112,1280 2112,1312 2144,1312 2144,1344 2176,1344 2176,2240 1728,2240 1728,2656 960,2656 960,2624 896,2624 896,2592 864,2592 864,2560 896,2560 896,2528 928,2528 928,2496 960,2496 960,2464 992,2464 992,2432 1024,2432 1024,2400 1056,2400 1056,2368 1088,2368 1088,2336 1120,2336 1120,2304 1152,2304 1152,2272 1184,2272 1184,2240 1216,2240 1216,2208 1248,2208 1248,2176 1280,2176 1280,2144 1312,2144 1312,2272 1440,2272 1440,1984 1472,1984 1472,1952 1504,1952 1504,1920 1536,1920 1536,1888 1568,1888 1568,1856 1600,1856 1600,1824 1632,1824 1632,1792 1664,1792 1664,1760 1728,1760 1728,1696 1760,1696 1760,1216 1728,1216 1728,1120 1696,1120 1696,1056 1664,1056 1664,1024 1568,1024 1568,992 64,992 64,960 32,960 32,928 0,928 0,896 -32,896 -32,864 -64,864 -64,832 -96,832 -96,800 -128,800 -128,0 -352,0 -352,864 -320,864 -320,896 -288,896 -288,928 -256,928 -256,960 -224,960 -224,992 -192,992 -192,1024 -160,1024 -160,1056 -128,1056 -128,1088 -96,1088 -96,1120 -64,1120 -64,1152 -32,1152 -32,1184 352,1184 352,1344 544,1344 544,1184 704,1184 704,1344 896,1344 896,1184 1152,1184 1152,1344 1440,1344 1440,1632 1376,1632 1376,1664 1344,1664 1344,1696 1312,1696 1312,1728 1280,1728 1280,1760 1248,1760 1248,1792 1216,1792 1216,1824 1184,1824 1184,1856 1152,1856 1152,1888 1120,1888 1120,1920 1088,1920 1088,1952 1056,1952 1056,1984 1024,1984 1024,2016 992,2016 992,2048 960,2048 960,2080 928,2080 928,2112 896,2112 896,2144 864,2144 864,2176 832,2176 832,2208 800,2208 800,2240 768,2240 768,2272 736,2272 736,2304 704,2304 704,2336 672,2336 672,2368 640,2368 640,2400 608,2400 608,2432 576,2432 576,2464 544,2464 544,2496 512,2496 512,2528 480,2528 480,2592 512,2592 512,2624 544,2624 544,2656 576,2656 576,2688 608,2688 608,2720 640,2720 640,2752 672,2752 672,2784 704,2784 704,2816 736,2816 736,2848 768,2848 768,2880 800,2880 800,2912 2080,2912 2080,2528 2176,2528 2176,3008 2624,3008 2624,1152 2592,1152 2592,1120 2560,1120 2560,1088 2528,1088 2528,992 2560,992 2560,480 2528,480 2528,448 2496,448 2496,416 2464,416 2464,384 2400,384 2400,96 2368,96 2368,32 2336,32 2336,0 0,0"/>
+  </object>
+  <object id="2" name="ground2" type="object" x="2624" y="512">
+   <polyline points="0,0 0,640 160,640 160,0 0,0"/>
+  </object>
+  <object id="4" name="spawn" type="body" x="679" y="230" width="9" height="11">
+   <properties>
+    <property name="isSensor" value="true"/>
+   </properties>
+  </object>
+  <object id="8" name="finish" type="object" x="162.667" y="98.3333" width="220" height="32">
+   <properties>
+    <property name="isSensor" value="true"/>
+    <property name="setUserData" value="new finishLineUserData()"/>
+   </properties>
+  </object>
+  <object id="9" name="0" type="body" x="1252" y="129">
+   <properties>
+    <property name="isSensor" value="true"/>
+   </properties>
+  </object>
+  <object id="12" name="1" type="body" x="1252" y="163">
+   <properties>
+    <property name="isSensor" value="true"/>
+   </properties>
+  </object>
+  <object id="13" name="2" type="body" x="1801" y="347">
+   <properties>
+    <property name="isSensor" value="true"/>
+   </properties>
+  </object>
+  <object id="19" name="3" type="body" x="1843" y="347">
+   <properties>
+    <property name="isSensor" value="true"/>
+   </properties>
+  </object>
+  <object id="20" name="4" type="body" x="2369" y="739">
+   <properties>
+    <property name="isSensor" value="true"/>
+   </properties>
+  </object>
+  <object id="23" name="5" type="body" x="2367" y="775">
+   <properties>
+    <property name="isSensor" value="true"/>
+   </properties>
+  </object>
+  <object id="24" name="6" type="body" x="3041" y="911">
+   <properties>
+    <property name="isSensor" value="true"/>
+   </properties>
+  </object>
+  <object id="25" name="7" type="body" x="3039" y="949">
+   <properties>
+    <property name="isSensor" value="true"/>
+   </properties>
+  </object>
+  <object id="26" name="8" type="body" x="2769" y="3042">
+   <properties>
+    <property name="isSensor" value="true"/>
+   </properties>
+  </object>
+  <object id="27" name="9" type="body" x="2879" y="3042">
+   <properties>
+    <property name="isSensor" value="true"/>
+   </properties>
+  </object>
+  <object id="28" name="10" type="body" x="3003" y="3044">
+   <properties>
+    <property name="isSensor" value="true"/>
+   </properties>
+  </object>
+  <object id="29" name="11" type="body" x="3087" y="3046">
+   <properties>
+    <property name="isSensor" value="true"/>
+   </properties>
+  </object>
+  <object id="30" name="12" type="body" x="1779" y="2796">
+   <properties>
+    <property name="isSensor" value="true"/>
+   </properties>
+  </object>
+  <object id="31" name="13" type="body" x="1841" y="2798">
+   <properties>
+    <property name="isSensor" value="true"/>
+   </properties>
+  </object>
+  <object id="32" name="14" type="body" x="1886" y="2313">
+   <properties>
+    <property name="isSensor" value="true"/>
+   </properties>
+  </object>
+  <object id="33" name="15" type="body" x="2225" y="1727">
+   <properties>
+    <property name="isSensor" value="true"/>
+   </properties>
+  </object>
+  <object id="34" name="16" type="body" x="1995" y="1703">
+   <properties>
+    <property name="isSensor" value="true"/>
+   </properties>
+  </object>
+  <object id="35" name="17" type="body" x="1710" y="1284">
+   <properties>
+    <property name="isSensor" value="true"/>
+   </properties>
+  </object>
+  <object id="36" name="18" type="body" x="1708" y="1228">
+   <properties>
+    <property name="isSensor" value="true"/>
+   </properties>
+  </object>
+  <object id="37" name="19" type="body" x="950" y="1380">
+   <properties>
+    <property name="isSensor" value="true"/>
+   </properties>
+  </object>
+  <object id="39" name="environment" type="object" x="0" y="0">
+   <polyline points="0,0 0,3200 3200,3200 3200,0 0,0"/>
+  </object>
+ </objectgroup>
+</map>

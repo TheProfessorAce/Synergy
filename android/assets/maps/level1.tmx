@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="50" height="25" tilewidth="32" tileheight="32" nextobjectid="49">
+ <tileset firstgid="1" name="Tiles" tilewidth="32" tileheight="32">
+  <image source="../tilemap/tile.png" width="36" height="72"/>
+  <terraintypes>
+   <terrain name="New Terrain" tile="-1"/>
+  </terraintypes>
+ </tileset>
+ <tileset firstgid="3" name="Tiles" tilewidth="32" tileheight="32">
+  <tile id="0">
+   <image width="32" height="32" source="../tilemap/bg.png"/>
+  </tile>
+  <tile id="1">
+   <image width="32" height="32" source="../tilemap/tile.png"/>
+  </tile>
+  <tile id="2">
+   <image width="32" height="32" source="../tilemap/finishLine.png"/>
+  </tile>
+ </tileset>
+ <layer name="Tile Layer 1" width="50" height="25">
+  <data encoding="base64" compression="zlib">
+   eJzt07ENACAMA8FIwP4rswIChw/IxdfxFekR0Z1z7tGasF8cpEXtoCwZDsKT6aB/JsNKG5QmervaRO9WeujNSg+9V2VR3x4JN6s6dvfctJw6Vve84FjZV+XX1VY7XKUm6lASUA==
+  </data>
+ </layer>
+ <objectgroup name="box2D">
+  <object id="3" name="environment" type="object" x="2" y="0">
+   <polyline points="0,0 2,800 1602,800 1602,0 2,0"/>
+  </object>
+  <object id="7" name="spawn" type="object" x="210" y="224" width="84" height="80">
+   <properties>
+    <property name="isSensor" value="true"/>
+   </properties>
+  </object>
+  <object id="27" name="0" type="object" x="560" y="246" width="48" height="48">
+   <properties>
+    <property name="isSensor" value="true"/>
+   </properties>
+  </object>
+  <object id="28" name="1" type="object" x="672" y="302" width="52" height="52">
+   <properties>
+    <property name="isSensor" value="true"/>
+   </properties>
+  </object>
+  <object id="29" name="2" type="object" x="772" y="362" width="60" height="60">
+   <properties>
+    <property name="isSensor" value="true"/>
+   </properties>
+  </object>
+  <object id="35" name="3" type="object" x="908" y="462">
+   <properties>
+    <property name="isSensor" value="true"/>
+   </properties>
+  </object>
+  <object id="36" name="4" type="object" x="996" y="488" width="48" height="48">
+   <properties>
+    <property name="isSensor" value="true"/>
+   </properties>
+  </object>
+  <object id="45" name="ground" type="object" x="158" y="190">
+   <polyline points="0,0 2,162 290,162 290,194 386,194 386,226 482,226 482,258 546,258 546,290 610,290 610,322 642,322 642,354 706,354 706,386 770,386 770,418 866,418 866,482 706,482 706,450 578,450 578,418 546,418 546,386 322,386 322,354 34,354 34,482 354,482 354,546 1026,546 1026,386 994,386 994,290 962,290 962,258 930,258 930,226 866,226 866,194 834,194 834,162 770,162 770,130 738,130 738,98 674,98 674,66 642,66 642,34 610,34 610,2 2,2"/>
+  </object>
+  <object id="48" name="finish" type="object" x="191" y="543" width="32" height="128">
+   <properties>
+    <property name="isSensor" value="true"/>
+    <property name="setUserData" value="new finishLineUserData()"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>
