@@ -6,5 +6,4 @@ eclipse.project {
     name = appName + "-core"
 }
 dependencies {
-    compile files('C:/Users/Son Royal/Programming/Synergy/SwarmConnect/library/libs/Swarm.jar')
 }

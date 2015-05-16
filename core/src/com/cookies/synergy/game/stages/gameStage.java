@@ -199,6 +199,7 @@ public class gameStage extends Stage implements ContactListener {
         setupRunner();
 
         bgm = assetManager.manager.get(constants.BGM, Music.class);
+        bgm.setVolume(0.5f);
         bgm.play();
         bgm.setLooping(true);
 
