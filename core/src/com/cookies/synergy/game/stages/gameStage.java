@@ -69,6 +69,8 @@ public class gameStage extends Stage implements ContactListener {
     private Array<Body> posCharges = new Array<Body>();
     private Array<Body> negCharges = new Array<Body>();
 
+    private Array<Body> powerUps = new Array<Body>();
+
     private Array<Body> toBeTransferred = new Array<Body>();
 
     private Body removeCharge;
@@ -120,10 +122,11 @@ public class gameStage extends Stage implements ContactListener {
     private Sound charged;
 
     private int numOfCharges;
-    private float timer = 10.999999999f;
+    private float timer = 9.999999999f;
     private boolean gameStarting = false;
     private boolean initDone = false;
     private boolean tempBool = false;
+    private float angle = 0f;
 
     public gameStage(Game game) {
         this.game = game;
@@ -151,23 +154,23 @@ public class gameStage extends Stage implements ContactListener {
         generator = assetManager.manager.get(constants.FONT, FreeTypeFontGenerator.class);
         parameter.size =  35* (int)constants.scale;
         parameter.color = Color.WHITE;
-        parameter.borderColor = Color.BLACK;
-        parameter.borderWidth = 3;
+        //parameter.borderColor = Color.BLACK;
+        //parameter.borderWidth = 3;
         font = generator.generateFont(parameter);
         textStyle = new Label.LabelStyle();
         textStyle.font = font;
 
         countdown = new Label("Starting in..." + timer, textStyle);
-        countdown.setPosition(hudCamera.viewportWidth/2 - countdown.getWidth()/2, hudCamera.viewportHeight/2 - countdown.getHeight()/2);
+        countdown.setPosition(hudCamera.viewportWidth/2 - countdown.getWidth()/2, (hudCamera.viewportHeight*3)/4 - countdown.getHeight()/2);
 
         text = new Label("Lap: " + lap + "/" + constants.numberOfLaps, textStyle);
-        text.setBounds(20f*constants.scale, hudCamera.viewportHeight - (20f*constants.scale), hudCamera.viewportWidth, 2);
+        text.setPosition(20f, hudCamera.viewportHeight - text.getPrefHeight() - (20f));
 
         text2 = new Label("Time: " + playTime, textStyle);
-        text2.setBounds(hudCamera.viewportWidth - (250f * constants.scale), hudCamera.viewportHeight - (20f * constants.scale), hudCamera.viewportWidth, 2);
+        text2.setPosition(hudCamera.viewportWidth - text2.getPrefWidth() - (20f), hudCamera.viewportHeight - text2.getPrefHeight() - (20f));
 
         text3 = new Label("Charges left: " + (constants.CHARGE_MAXIMUM-(posCharges.size+negCharges.size)) ,textStyle);
-        text3.setBounds(hudCamera.viewportWidth - (200f * constants.scale), (25f * constants.scale), hudCamera.viewportWidth, 2);
+        text3.setPosition(hudCamera.viewportWidth - text3.getPrefWidth() - (20f), (20f));
 
         drawButtons();
     }
@@ -221,6 +224,7 @@ public class gameStage extends Stage implements ContactListener {
     private void setupPowerUps(float x, float y, int mode) {
         powerUp = new PowerUp(worldUtils.createPowerUps(world, x, y, mode));
         addActor(powerUp);
+        powerUps.add(powerUp.getBody());
     }
 
     private void setupRunner() {
@@ -283,6 +287,8 @@ public class gameStage extends Stage implements ContactListener {
             accumulator -= TIME_STEP;
         }
 
+        angle += delta + 0.2f;
+
         mapRenderer.setView(camera);
         mapRenderer.render();
 
@@ -316,15 +322,27 @@ public class gameStage extends Stage implements ContactListener {
         if(timer<=0.0f) {
             gameStarting = false;
             gameStarted = true;
-            timer = 10.999999f;
+            timer = 9.999999f;
             lap = 1;
             playTime = 0.0f;
             timeRecorded = false;
         }
 
-        countdown.setText("Starting in..." + (int) timer);
+        countdown.setText("Starting in..." + ((int) timer + 1));
 
         checkChargeTime();
+
+        for(int x=0;x<posCharges.size;x++){
+            posCharges.get(x).setTransform(posCharges.get(x).getPosition(), angle);
+        }
+
+        for(int x=0;x<negCharges.size;x++){
+            negCharges.get(x).setTransform(negCharges.get(x).getPosition(), angle);
+        }
+
+        for(int x=0;x<powerUps.size;x++) {
+            powerUps.get(x).setTransform(powerUps.get(x).getPosition(), angle);
+        }
 
     }
 
@@ -353,16 +371,18 @@ public class gameStage extends Stage implements ContactListener {
         if(!finished) {
             text.setText("Lap: " + lap + "/" + constants.numberOfLaps);
             text2.setText("Time: " + (int) playTime + " sec");
+            text2.setPosition(hudCamera.viewportWidth - text2.getPrefWidth() - (20f), hudCamera.viewportHeight - text2.getHeight() - (20f));
             text3.setText("Charges left: " + (constants.CHARGE_MAXIMUM - (posCharges.size + negCharges.size)));
             tempBool = false;
         }
         else {
             text.setText("FINISHED!");
+            text.setPosition(20f, hudCamera.viewportHeight - text.getPrefHeight() - (20f));
             if(!timeRecorded) {
                 finishTime = playTime;
                 timeRecorded = true;
             }
-            text2.setBounds(hudCamera.viewportWidth - (300f * constants.scale), hudCamera.viewportHeight - (20f * constants.scale), hudCamera.viewportWidth, 2);
+            text2.setPosition(hudCamera.viewportWidth - text2.getPrefWidth() - (20f), hudCamera.viewportHeight - text2.getHeight() - (20f));
             text2.setText("Time Finished: " + (int) finishTime + " sec");
             text3.setText("");
             if(!tempBool) {
@@ -463,7 +483,7 @@ public class gameStage extends Stage implements ContactListener {
         startButtonStyle = new ImageButton.ImageButtonStyle();
         startButtonStyle.up = new Image(assetManager.manager.get(constants.STARTUP, Texture.class)).getDrawable();
         startButtonStyle.down = new Image(assetManager.manager.get(constants.STARTDOWN, Texture.class)).getDrawable();
-        startButtonStyle.disabled = new Image(assetManager.manager.get(constants.STARTDOWN, Texture.class)).getDrawable();
+        startButtonStyle.disabled = new Image(assetManager.manager.get(constants.STARTING, Texture.class)).getDrawable();
 
         chargeButton = new ImageButton(chargeButtonStyle);
         startButton = new ImageButton(startButtonStyle);
@@ -495,7 +515,7 @@ public class gameStage extends Stage implements ContactListener {
         startButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                if(!startButton.isDisabled()) {
+                if (!startButton.isDisabled()) {
                     click.play();
                     startGame();
                 }
@@ -524,6 +544,7 @@ public class gameStage extends Stage implements ContactListener {
         renderer.dispose();
         mapRenderer.dispose();
         map.dispose();
+        assetManager.dispose();
     }
 
     @Override

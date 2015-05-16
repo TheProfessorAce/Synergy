@@ -15,9 +15,23 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 public class assetManager {
 
     public static AssetManager manager = new AssetManager();
+    public static boolean initLoaded = false;
+    public static boolean allLoaded = false;
+
+    public static void loadBefore() {
+        manager.setLoader(FreeTypeFontGenerator.class, new FreeTypeFontGeneratorLoader(new InternalFileHandleResolver()));
+        manager.setLoader(BitmapFont.class, ".ttf", new FreetypeFontLoader(new InternalFileHandleResolver()));
+        manager.load(constants.FONT, FreeTypeFontGenerator.class);
+
+        manager.finishLoading();
+        initLoaded = true;
+    }
 
     public static void load() {
-        manager = new AssetManager();
+
+        if(!initLoaded) {
+            loadBefore();
+        }
 
         manager.load(constants.POSRUNNER_SPRITE, Texture.class);
         manager.load(constants.NEGRUNNER_SPRITE, Texture.class);
@@ -38,22 +52,18 @@ public class assetManager {
         manager.load(constants.BLURP, Sound.class);
         manager.load(constants.STARTUP, Texture.class);
         manager.load(constants.STARTDOWN, Texture.class);
+        manager.load(constants.STARTING, Texture.class);
 
         manager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
         manager.load(constants.LEVEL1_MAP, TiledMap.class);
         manager.load(constants.LEVEL2_MAP, TiledMap.class);
 
-        manager.setLoader(FreeTypeFontGenerator.class, new FreeTypeFontGeneratorLoader(new InternalFileHandleResolver()));
-        manager.setLoader(BitmapFont.class, ".ttf", new FreetypeFontLoader(new InternalFileHandleResolver()));
-        manager.load(constants.FONT, FreeTypeFontGenerator.class);
-
-        while(!manager.update()) {
-            System.out.println("Loaded: " + manager.getProgress() * 100 + "%");
-        }
+        allLoaded = true;
 
     }
     public static Boolean isLoaded() {
-        if(manager.getProgress() >= 1) {
+        manager.update();
+        if(manager.getProgress() >= 1 && allLoaded) {
             return true;
         }
         else {

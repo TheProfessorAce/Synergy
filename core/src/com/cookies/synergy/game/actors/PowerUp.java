@@ -14,6 +14,10 @@ public class PowerUp extends gameActor {
         return (powerUpUserData) UserData;
     }
 
+    public Body getBody() {
+        return this.body;
+    }
+
 
 
 }

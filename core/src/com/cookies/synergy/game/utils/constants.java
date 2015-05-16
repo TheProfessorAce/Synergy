@@ -60,7 +60,7 @@ public class constants {
     public static final int NUMBER_OF_POWERUPS_1 = 5;
     public static final int NUMBER_OF_POWERUPS_2 = 20;
 
-    public static final String FONT = "fonts/Reckoner.ttf";
+    public static final String FONT = "fonts/Reckoner_Bold.ttf";
 
     public static final String BGM = "bgm/bgm.mp3";
     public static final String BLOOP = "sfx/bloop.mp3";
@@ -70,4 +70,5 @@ public class constants {
 
     public static final String STARTUP = "buttons/startup.png";
     public static final String STARTDOWN = "buttons/startdown.png";
+    public static final String STARTING = "buttons/starting.png";
 }

@@ -23,7 +23,7 @@ public class loadingStage extends Stage{
     public loadingStage(Game game) {
         main = game;
 
-        assetManager.load();
+        assetManager.loadBefore();
 
         generator = assetManager.manager.get(constants.FONT, FreeTypeFontGenerator.class);
         parameter.size =  35* (int)constants.scale;
@@ -38,6 +38,8 @@ public class loadingStage extends Stage{
         text.setPosition(Gdx.graphics.getWidth() / 2 - text.getWidth() / 2, Gdx.graphics.getHeight() / 2 - text.getHeight() / 2);
 
         addActor(text);
+
+        assetManager.load();
     }
 
     @Override
