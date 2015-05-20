@@ -1,6 +1,5 @@
 package com.appwarp;
 
-import com.cookies.synergy.game.AppWarp.WarpController;
 import com.shephertz.app42.gaming.multiplayer.client.command.WarpResponseResultCode;
 import com.shephertz.app42.gaming.multiplayer.client.listener.ChatRequestListener;
 
