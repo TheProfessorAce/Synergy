@@ -53,6 +53,9 @@ public class assetManager {
         manager.load(constants.STARTUP, Texture.class);
         manager.load(constants.STARTDOWN, Texture.class);
         manager.load(constants.STARTING, Texture.class);
+        manager.load(constants.HELPUP, Texture.class);
+        manager.load(constants.HELPDOWN, Texture.class);
+        manager.load(constants.HELP, Texture.class);
 
         manager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
         manager.load(constants.LEVEL1_MAP, TiledMap.class);
@@ -72,7 +75,6 @@ public class assetManager {
     }
 
     public static void dispose() {
-        manager.dispose();
-        manager = null;
+        manager.clear();
     }
 }

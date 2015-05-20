@@ -2,6 +2,7 @@ package com.cookies.synergy.game.stages;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
@@ -60,6 +61,10 @@ public class gameStage extends Stage implements ContactListener {
     private ImageButton chargeButton;
     private ImageButton.ImageButtonStyle startButtonStyle;
     private ImageButton startButton;
+    private ImageButton.ImageButtonStyle helpButtonStyle;
+    private ImageButton helpButton;
+    private ImageButton.ImageButtonStyle helpStyle;
+    private ImageButton help;
 
     private Stage hudStage;
 
@@ -93,7 +98,7 @@ public class gameStage extends Stage implements ContactListener {
 
     private OrthogonalTiledMapRenderer mapRenderer;
     private TiledMap map;
-    private Box2DMapObjectParser parser = new Box2DMapObjectParser((1/16f));
+    private Box2DMapObjectParser parser = new Box2DMapObjectParser((1/8f));
     private boolean debug;
 
     private BitmapFont font;
@@ -103,6 +108,7 @@ public class gameStage extends Stage implements ContactListener {
     private Label text;
     private Label text2;
     private Label text3;
+    private Label text4;
     private Label.LabelStyle textStyle;
 
     private int lap = 1;
@@ -128,8 +134,14 @@ public class gameStage extends Stage implements ContactListener {
     private boolean tempBool = false;
     private float angle = 0f;
 
+    private boolean aintFirst = false;
+
     public gameStage(Game game) {
         this.game = game;
+        if(!constants.prefs.contains("highscore")) {
+            constants.prefs.putInteger("highscore", 0);
+        }
+
 
         setupCamera();
 
@@ -154,10 +166,9 @@ public class gameStage extends Stage implements ContactListener {
         generator = assetManager.manager.get(constants.FONT, FreeTypeFontGenerator.class);
         parameter.size =  35* (int)constants.scale;
         parameter.color = Color.WHITE;
-        //parameter.borderColor = Color.BLACK;
-        //parameter.borderWidth = 3;
         font = generator.generateFont(parameter);
         textStyle = new Label.LabelStyle();
+
         textStyle.font = font;
 
         countdown = new Label("Starting in..." + timer, textStyle);
@@ -172,7 +183,16 @@ public class gameStage extends Stage implements ContactListener {
         text3 = new Label("Charges left: " + (constants.CHARGE_MAXIMUM-(posCharges.size+negCharges.size)) ,textStyle);
         text3.setPosition(hudCamera.viewportWidth - text3.getPrefWidth() - (20f), (20f));
 
+        text4 = new Label("Fastest Time: " + getHighScore() + " sec", textStyle);
+        text4.setPosition(hudCamera.viewportWidth - text4.getPrefWidth() - (20f), hudCamera.viewportHeight - text4.getPrefHeight() - (20f));
+
         drawButtons();
+        if(getHighScore() <= 0) {
+
+        }
+        else {
+            hudStage.addActor(text4);
+        }
     }
 
     private void setupCamera() {
@@ -187,6 +207,7 @@ public class gameStage extends Stage implements ContactListener {
         multiplexer.addProcessor(hudStage);
         multiplexer.addProcessor(this);
         Gdx.input.setInputProcessor(multiplexer);
+        Gdx.input.setCatchBackKey(true);
     }
 
     private void setupWorld() {
@@ -200,8 +221,8 @@ public class gameStage extends Stage implements ContactListener {
 
         bgm = assetManager.manager.get(constants.BGM, Music.class);
         bgm.setVolume(0.5f);
-        bgm.play();
         bgm.setLooping(true);
+        bgm.play();
 
         placeCharge = assetManager.manager.get(constants.BLOOP, Sound.class);
         finish = assetManager.manager.get(constants.CHIME, Sound.class);
@@ -210,14 +231,14 @@ public class gameStage extends Stage implements ContactListener {
     }
 
     private void setupMap() {
-        map = assetManager.manager.get(constants.LEVEL2_MAP);
+        map = assetManager.manager.get(constants.LEVEL1_MAP);
         renderer = new Box2DDebugRenderer();
         parser.load(world, map);
         mapRenderer = new OrthogonalTiledMapRenderer(map, parser.getUnitScale());
 
         Random generator = new Random();
 
-        for(int x=0;x<constants.NUMBER_OF_POWERUPS_2;x++) {
+        for(int x=0;x<constants.NUMBER_OF_POWERUPS_1;x++) {
             setupPowerUps(parser.getBodies().get(x+"").getPosition().x, parser.getBodies().get(x+"").getPosition().y, generator.nextInt(3));
         }
     }
@@ -345,6 +366,10 @@ public class gameStage extends Stage implements ContactListener {
             powerUps.get(x).setTransform(powerUps.get(x).getPosition(), angle);
         }
 
+        if(Gdx.input.isKeyPressed(Input.Keys.BACK)) {
+            Gdx.app.exit();
+        }
+
     }
 
     private void startGame() {
@@ -352,9 +377,11 @@ public class gameStage extends Stage implements ContactListener {
         finished = false;
         gameStarting = true;
         startButton.setDisabled(true);
+        helpButton.remove();
         text.remove();
         text2.remove();
         text3.remove();
+        text4.remove();
         hudStage.addActor(countdown);
     }
 
@@ -362,6 +389,7 @@ public class gameStage extends Stage implements ContactListener {
         initDone = true;
         countdown.remove();
         startButton.remove();
+        helpButton.remove();
         runner.getBody().setTransform(parser.getBodies().get("spawn").getPosition().x, parser.getBodies().get("spawn").getPosition().y, runner.getBody().getAngle());
         hudStage.addActor(text);
         hudStage.addActor(text2);
@@ -377,20 +405,37 @@ public class gameStage extends Stage implements ContactListener {
             tempBool = false;
         }
         else {
+            aintFirst = true;
             text.setText("FINISHED!");
             text.setPosition(20f, hudCamera.viewportHeight - text.getPrefHeight() - (20f));
             if(!timeRecorded) {
                 finishTime = playTime;
                 timeRecorded = true;
             }
-            text2.setPosition(hudCamera.viewportWidth - text2.getPrefWidth() - (20f), hudCamera.viewportHeight - text2.getHeight() - (20f));
-            text2.setText("Time Finished: " + (int) finishTime + " sec");
+            //text2.setPosition(hudCamera.viewportWidth - text2.getPrefWidth() - (20f), hudCamera.viewportHeight - text2.getHeight() - (20f));
+            //text2.setText("Time Finished: " + (int) finishTime + " sec");
             text3.setText("");
             if(!tempBool) {
+                checkScore();
+                hudStage.addActor(text4);
+                text4.setText("Fastest Time: " + getHighScore() + " sec");
+                text4.setPosition(hudCamera.viewportWidth - text4.getPrefWidth() - (20f), hudCamera.viewportHeight - text4.getPrefHeight() - text2.getPrefHeight() - (20f));
                 hudStage.addActor(startButton);
+                hudStage.addActor(helpButton);
                 startButton.setDisabled(false);
                 tempBool = true;
             }
+        }
+    }
+
+    private void checkScore() {
+        if((int) finishTime < getHighScore() || getHighScore() == 0) {
+            setHighScore((int) finishTime);
+            text2.setText("New Best: " + (int) finishTime + " sec");
+            text2.setPosition(hudCamera.viewportWidth - text2.getPrefWidth() - (20f), hudCamera.viewportHeight - text2.getHeight() - (20f));
+        } else {
+            text2.setText("Time Finished: " + (int) finishTime + " sec");
+            text2.setPosition(hudCamera.viewportWidth - text2.getPrefWidth() - (20f), hudCamera.viewportHeight - text2.getHeight() - (20f));
         }
     }
 
@@ -486,8 +531,18 @@ public class gameStage extends Stage implements ContactListener {
         startButtonStyle.down = new Image(assetManager.manager.get(constants.STARTDOWN, Texture.class)).getDrawable();
         startButtonStyle.disabled = new Image(assetManager.manager.get(constants.STARTING, Texture.class)).getDrawable();
 
+        helpButtonStyle = new ImageButton.ImageButtonStyle();
+        helpButtonStyle.up = new Image(assetManager.manager.get(constants.HELPUP, Texture.class)).getDrawable();
+        helpButtonStyle.down = new Image(assetManager.manager.get(constants.HELPDOWN, Texture.class)).getDrawable();
+
+        helpStyle = new ImageButton.ImageButtonStyle();
+        helpStyle.up = new Image(assetManager.manager.get(constants.HELP, Texture.class)).getDrawable();
+        helpStyle.down = new Image(assetManager.manager.get(constants.HELP, Texture.class)).getDrawable();
+
         chargeButton = new ImageButton(chargeButtonStyle);
         startButton = new ImageButton(startButtonStyle);
+        helpButton = new ImageButton(helpButtonStyle);
+        help = new ImageButton(helpStyle);
 
         chargeButton.setWidth(constants.BUTTON_SIZE * constants.scale);
         chargeButton.setHeight(constants.BUTTON_SIZE * constants.scale);
@@ -496,8 +551,15 @@ public class gameStage extends Stage implements ContactListener {
         startButton.setWidth(constants.BUTTON_SIZE * constants.scale);
         startButton.setHeight(constants.BUTTON_SIZE * constants.scale);
 
+        helpButton.setWidth(constants.BUTTON2_SIZE * constants.scale);
+        helpButton.setHeight(constants.BUTTON2_SIZE * constants.scale);
+
+        help.setWidth(hudCamera.viewportWidth);
+        help.setHeight(hudCamera.viewportHeight);
+
         chargeButton.setPosition(20f, 20f);
         startButton.setPosition(hudCamera.viewportWidth - startButton.getWidth() - 20f, 20f);
+        helpButton.setPosition(hudCamera.viewportWidth - helpButton.getWidth() - 20f, startButton.getHeight() + 25f);
 
         chargeButton.addListener(new ClickListener() {
             @Override
@@ -523,9 +585,66 @@ public class gameStage extends Stage implements ContactListener {
             }
         });
 
+        helpButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                click.play();
+                helpActivate();
+            }
+        });
+
+        help.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                click.play();
+                helpDeactivate();
+            }
+        });
+
         hudStage.addActor(startButton);
+        hudStage.addActor(helpButton);
         hudStage.addActor(chargeButton);
 
+        if(hudStage.getActors().contains(helpButton, true)) {
+            System.out.println("IT IS HERE! MILORD AT " + helpButton.getX() +","+ helpButton.getY());
+            System.out.println("START IS HERE! MILORD AT " + startButton.getX() +","+ startButton.getY());
+        }
+
+    }
+
+    private void helpActivate() {
+        hudStage.addActor(help);
+        startButton.remove();
+        helpButton.remove();
+        chargeButton.remove();
+        text.remove();
+        text2.remove();
+        text3.remove();
+        text4.remove();
+    }
+
+    private void helpDeactivate() {
+        help.remove();
+        hudStage.addActor(startButton);
+        hudStage.addActor(helpButton);
+        hudStage.addActor(chargeButton);
+        if(getHighScore() > 0) {
+            hudStage.addActor(text4);
+        }
+        if(aintFirst) {
+            hudStage.addActor(text);
+            hudStage.addActor(text2);
+            hudStage.addActor(text3);
+        }
+    }
+
+    private void setHighScore(int val) {
+        constants.prefs.putInteger("highscore", val);
+        constants.prefs.flush();
+    }
+
+    private int getHighScore() {
+        return constants.prefs.getInteger("highscore");
     }
 
     @Override
@@ -538,10 +657,8 @@ public class gameStage extends Stage implements ContactListener {
 
     @Override
     public void dispose() {
-        super.dispose();
         hudBatch.dispose();
         hudStage.dispose();
-        this.dispose();
         renderer.dispose();
         mapRenderer.dispose();
         map.dispose();

@@ -45,7 +45,7 @@ public class gameScreen implements Screen {
 
     @Override
     public void hide() {
-
+        stage.dispose();
     }
 
     @Override

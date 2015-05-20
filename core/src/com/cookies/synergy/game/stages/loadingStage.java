@@ -23,6 +23,10 @@ public class loadingStage extends Stage{
     public loadingStage(Game game) {
         main = game;
 
+        if(!constants.prefs.contains("tutorialDone")) {
+            constants.prefs.putBoolean("tutorialDone", false);
+        }
+
         assetManager.loadBefore();
 
         generator = assetManager.manager.get(constants.FONT, FreeTypeFontGenerator.class);

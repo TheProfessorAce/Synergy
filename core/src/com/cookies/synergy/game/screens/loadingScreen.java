@@ -45,7 +45,7 @@ public class loadingScreen implements Screen {
 
     @Override
     public void hide() {
-
+        stage.dispose();
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.cookies.synergy.game.utils;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeType;
@@ -14,11 +15,13 @@ public class constants {
     public static int numberOfLaps = 3;
     public static float COOLDOWN_TIME = 1f;
 
+    public static Preferences prefs = Gdx.app.getPreferences("SynergyPrefs");
+
     public static String appKey = "dbc066469b6caaf9f748d71ef066274fcd2a19df84c4851f827949bf93d944b2";
     public static String secretKey="68095c60cc1fa72d4326be4675097765c6ba16ff752a7d5ac2cbf075d8530d9";
 
-    public static final int appWidth = 800;
-    public static final int appHeight = 640;
+    public static final int appWidth = 960;
+    public static final int appHeight = 544;
     public static final float scale = Gdx.graphics.getWidth()/appWidth;
     public static final float pixelsPerMeter = (float) 16*scale;
 
@@ -54,6 +57,7 @@ public class constants {
     public static final String NEUTPOWERUP_SPRITE = "powerups/neutPowerUp.png";
 
     public static final float BUTTON_SIZE = 100f;
+    public static final float BUTTON2_SIZE = 75f;
 
     public static final String LEVEL1_MAP = "maps/level1.tmx";
     public static final String LEVEL2_MAP = "maps/level2.tmx";
@@ -62,7 +66,7 @@ public class constants {
 
     public static final String FONT = "fonts/Reckoner_Bold.ttf";
 
-    public static final String BGM = "bgm/bgm.mp3";
+    public static final String BGM = "bgm/bgm.ogg";
     public static final String BLOOP = "sfx/bloop.mp3";
     public static final String CHIME = "sfx/chime.mp3";
     public static final String BLIP = "sfx/blip.mp3";
@@ -71,4 +75,8 @@ public class constants {
     public static final String STARTUP = "buttons/startup.png";
     public static final String STARTDOWN = "buttons/startdown.png";
     public static final String STARTING = "buttons/starting.png";
+
+    public static final String HELPUP = "buttons/helpup.png";
+    public static final String HELPDOWN = "buttons/helpdown.png";
+    public static final String HELP = "buttons/tutorial.png";
 }
