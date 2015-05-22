@@ -3,8 +3,10 @@ package com.appwarp;
 
 import com.shephertz.app42.gaming.multiplayer.client.WarpClient;
 import com.shephertz.app42.gaming.multiplayer.client.command.WarpResponseResultCode;
+import com.shephertz.app42.gaming.multiplayer.client.events.RoomData;
 import com.shephertz.app42.gaming.multiplayer.client.events.RoomEvent;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class WarpController {
@@ -24,7 +26,7 @@ public class WarpController {
     private boolean isConnected = false;
     boolean isUDPEnabled = false;
 
-    private com.appwarp.WarpListener warpListener;
+    private WarpListener warpListener;
 
     private int STATE;
 
@@ -36,7 +38,7 @@ public class WarpController {
 
     // Game completed constants
     public static final int GAME_WIN = 5;
-    public static final int GAME_LOOSE = 6;
+    public static final int GAME_LOSE = 6;
     public static final int ENEMY_LEFT = 7;
 
     public WarpController() {
@@ -104,7 +106,7 @@ public class WarpController {
         log("onConnectDone: " + status);
         if (status) {
             warpClient.initUDP();
-            warpClient.joinRoomInRange(1, 1, false);
+            warpClient.joinLobby();
         } else {
             isConnected = false;
             handleError();
@@ -131,7 +133,7 @@ public class WarpController {
         } else if (event.getResult() == WarpResponseResultCode.RESOURCE_NOT_FOUND) {// no such room found
             HashMap<String, Object> data = new HashMap<String, Object>();
             data.put("result", "");
-            warpClient.createRoom("superjumper", "shephertz", 2, data);
+            warpClient.createRoom("synergy", "cookies", 4, data);
         } else {
             warpClient.disconnect();
             handleError();

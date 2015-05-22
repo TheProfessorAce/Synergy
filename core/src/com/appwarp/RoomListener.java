@@ -2,6 +2,7 @@ package com.appwarp;
 
 import com.shephertz.app42.gaming.multiplayer.client.command.WarpResponseResultCode;
 import com.shephertz.app42.gaming.multiplayer.client.events.LiveRoomInfoEvent;
+import com.shephertz.app42.gaming.multiplayer.client.events.MatchedRoomsEvent;
 import com.shephertz.app42.gaming.multiplayer.client.events.RoomEvent;
 import com.shephertz.app42.gaming.multiplayer.client.listener.RoomRequestListener;
 

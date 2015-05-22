@@ -1,5 +1,7 @@
 package com.cookies.synergy.game.stages;
 
+import com.appwarp.WarpController;
+import com.appwarp.WarpListener;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -375,13 +377,13 @@ public class gameStage extends Stage implements ContactListener {
     private void startGame() {
         initDone = false;
         finished = false;
-        gameStarting = true;
         startButton.setDisabled(true);
         helpButton.remove();
         text.remove();
         text2.remove();
         text3.remove();
         text4.remove();
+        gameStarting = true;
         hudStage.addActor(countdown);
     }
 
@@ -412,8 +414,6 @@ public class gameStage extends Stage implements ContactListener {
                 finishTime = playTime;
                 timeRecorded = true;
             }
-            //text2.setPosition(hudCamera.viewportWidth - text2.getPrefWidth() - (20f), hudCamera.viewportHeight - text2.getHeight() - (20f));
-            //text2.setText("Time Finished: " + (int) finishTime + " sec");
             text3.setText("");
             if(!tempBool) {
                 checkScore();

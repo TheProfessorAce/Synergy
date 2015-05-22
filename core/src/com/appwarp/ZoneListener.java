@@ -1,13 +1,12 @@
 package com.appwarp;
 
+import com.cookies.synergy.game.utils.constants;
 import com.shephertz.app42.gaming.multiplayer.client.command.WarpResponseResultCode;
 import com.shephertz.app42.gaming.multiplayer.client.events.AllRoomsEvent;
 import com.shephertz.app42.gaming.multiplayer.client.events.AllUsersEvent;
-import com.shephertz.app42.gaming.multiplayer.client.events.LiveRoomInfoEvent;
 import com.shephertz.app42.gaming.multiplayer.client.events.LiveUserInfoEvent;
 import com.shephertz.app42.gaming.multiplayer.client.events.MatchedRoomsEvent;
 import com.shephertz.app42.gaming.multiplayer.client.events.RoomEvent;
-import com.shephertz.app42.gaming.multiplayer.client.listener.RoomRequestListener;
 import com.shephertz.app42.gaming.multiplayer.client.listener.ZoneRequestListener;
 
 public class ZoneListener implements ZoneRequestListener{
@@ -37,13 +36,11 @@ public class ZoneListener implements ZoneRequestListener{
 
 	@Override
 	public void onGetAllRoomsDone (AllRoomsEvent arg0) {
-		
-		
+		constants.roomDataList = arg0.getRoomIds();
 	}
 
 	@Override
 	public void onGetLiveUserInfoDone (LiveUserInfoEvent arg0) {
-		
 		
 	}
 
@@ -54,14 +51,12 @@ public class ZoneListener implements ZoneRequestListener{
 
 	@Override
 	public void onGetOnlineUsersDone (AllUsersEvent arg0) {
-		
-		
+		constants.playerList = arg0.getUserNames();
 	}
 
 	@Override
 	public void onSetCustomUserDataDone (LiveUserInfoEvent arg0) {
-		
-		
+
 	}
 	
 

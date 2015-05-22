@@ -56,6 +56,7 @@ public class assetManager {
         manager.load(constants.HELPUP, Texture.class);
         manager.load(constants.HELPDOWN, Texture.class);
         manager.load(constants.HELP, Texture.class);
+        manager.load(constants.BACKGROUND, Texture.class);
 
         manager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
         manager.load(constants.LEVEL1_MAP, TiledMap.class);

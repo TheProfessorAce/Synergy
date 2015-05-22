@@ -7,6 +7,10 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeType;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.math.Vector2;
+import com.shephertz.app42.gaming.multiplayer.client.WarpClient;
+import com.shephertz.app42.gaming.multiplayer.client.events.RoomData;
+
+import java.util.ArrayList;
 
 public class constants {
 
@@ -79,4 +83,11 @@ public class constants {
     public static final String HELPUP = "buttons/helpup.png";
     public static final String HELPDOWN = "buttons/helpdown.png";
     public static final String HELP = "buttons/tutorial.png";
+
+    public static final String BACKGROUND = "tilemap/bg.png";
+
+    //-------------------MULTIPLAYER0----------------------//
+
+    public static String[] roomDataList;
+    public static String[] playerList;
 }
