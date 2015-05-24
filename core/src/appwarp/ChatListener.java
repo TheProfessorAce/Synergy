@@ -1,4 +1,4 @@
-package com.appwarp;
+package appwarp;
 
 import com.shephertz.app42.gaming.multiplayer.client.command.WarpResponseResultCode;
 import com.shephertz.app42.gaming.multiplayer.client.listener.ChatRequestListener;
@@ -6,10 +6,10 @@ import com.shephertz.app42.gaming.multiplayer.client.listener.ChatRequestListene
 
 
 public class ChatListener implements ChatRequestListener{
-
-	com.appwarp.WarpController callBack;
 	
-	public ChatListener(com.appwarp.WarpController callBack) {
+	WarpController callBack;
+	
+	public ChatListener(WarpController callBack) {
 		this.callBack = callBack;
 	}
 

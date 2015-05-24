@@ -1,7 +1,7 @@
 package com.cookies.synergy.game.screens;
 
-import com.appwarp.WarpController;
-import com.appwarp.WarpListener;
+import appwarp.WarpController;
+import appwarp.WarpListener;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -67,12 +67,6 @@ public class startMultiplayerScreen implements Screen, WarpListener {
 
     @Override
     public void onError(String message) {
-        Gdx.app.postRunnable(new Runnable() {
-            @Override
-            public void run() {
-                game.setScreen(new gameScreen(game));
-            }
-        });
     }
 
     @Override

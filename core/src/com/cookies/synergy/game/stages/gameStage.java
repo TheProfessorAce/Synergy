@@ -1,7 +1,7 @@
 package com.cookies.synergy.game.stages;
 
-import com.appwarp.WarpController;
-import com.appwarp.WarpListener;
+import appwarp.WarpController;
+import appwarp.WarpListener;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;

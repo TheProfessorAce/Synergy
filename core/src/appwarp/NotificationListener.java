@@ -1,4 +1,4 @@
-package com.appwarp;
+package appwarp;
 
 import java.util.HashMap;
 import java.util.Hashtable;

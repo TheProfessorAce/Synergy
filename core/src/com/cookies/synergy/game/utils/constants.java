@@ -2,15 +2,7 @@ package com.cookies.synergy.game.utils;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
-import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeType;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.math.Vector2;
-import com.shephertz.app42.gaming.multiplayer.client.WarpClient;
-import com.shephertz.app42.gaming.multiplayer.client.events.RoomData;
-
-import java.util.ArrayList;
 
 public class constants {
 
@@ -22,7 +14,7 @@ public class constants {
     public static Preferences prefs = Gdx.app.getPreferences("SynergyPrefs");
 
     public static String appKey = "dbc066469b6caaf9f748d71ef066274fcd2a19df84c4851f827949bf93d944b2";
-    public static String secretKey="68095c60cc1fa72d4326be4675097765c6ba16ff752a7d5ac2cbf075d8530d9";
+    public static String secretKey="68095c60cc1fa72d4326be4675097765c6ba16ff752a7d5ac2cbf075d8530d9f";
 
     public static final int appWidth = 960;
     public static final int appHeight = 544;
@@ -30,6 +22,7 @@ public class constants {
     public static final float pixelsPerMeter = (float) 16*scale;
 
     public static final boolean DEBUG_ACTIVATE = false;
+    public static final boolean showLog = false;
 
     public static final Vector2 WORLD_GRAVITY = new Vector2(0, -10);
 

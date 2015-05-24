@@ -76,6 +76,8 @@ public class TabbedList extends Widget implements Cullable {
 	private String tabDelimiter;
 	private String header;
 	private float columnGap;
+    private GlyphLayout bounds = new GlyphLayout();
+    private GlyphLayout columnBounds = new GlyphLayout();
 
 	public TabbedList(Object[] items, Skin skin) {
 		this(items, skin.get(TabbedListStyle.class));
@@ -281,9 +283,8 @@ public class TabbedList extends Widget implements Cullable {
 
 		prefWidth = 0;
 		for (int i = 0; i < items.length; i++) {
-            GlyphLayout layout = new GlyphLayout();
-            layout.setText(font, items[i]);
-			prefWidth = Math.max(layout.width, prefWidth);
+            bounds.setText(font, items[i]);
+			prefWidth = Math.max(bounds.width, prefWidth);
 			updateTabBounds(font, items[i]);
 		}
 		prefHeight = items.length * itemHeight;
@@ -294,7 +295,6 @@ public class TabbedList extends Widget implements Cullable {
 	private void updateTabBounds(BitmapFont font, String item) {
 		String[] columns = item.split(tabDelimiter);
 		for (int i = 0; i < columns.length; i++) {
-            GlyphLayout columnBounds = new GlyphLayout();
             columnBounds.setText(font, columns[i]);
 			Float maxColumnWidth = columnWidths.size() > i ? columnWidths.get(i) : null;
 			if (maxColumnWidth == null) {

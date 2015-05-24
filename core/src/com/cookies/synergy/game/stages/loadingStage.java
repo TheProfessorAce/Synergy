@@ -1,7 +1,5 @@
 package com.cookies.synergy.game.stages;
 
-import com.appwarp.WarpController;
-import com.appwarp.WarpListener;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -9,12 +7,9 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.cookies.synergy.game.screens.gameScreen;
 import com.cookies.synergy.game.screens.multiplayerScreen;
 import com.cookies.synergy.game.utils.assetManager;
 import com.cookies.synergy.game.utils.constants;
-
-import java.util.Random;
 
 public class loadingStage extends Stage{
 
@@ -67,14 +62,5 @@ public class loadingStage extends Stage{
     @Override
     public void dispose() {
         super.dispose();
-    }
-
-    private String getRandomHexString(int numchars){
-        Random r = new Random();
-        StringBuffer sb = new StringBuffer();
-        while(sb.length() < numchars){
-            sb.append(Integer.toHexString(r.nextInt()));
-        }
-        return sb.toString().substring(0, numchars);
     }
 }

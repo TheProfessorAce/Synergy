@@ -6,4 +6,6 @@ eclipse.project {
     name = appName + "-core"
 }
 dependencies {
+    compile files('C:/Users/Son Royal/Programming/Synergy/App42_JAVA_SDK_2.6.jar')
+    compile files('C:/Users/Son Royal/Programming/Synergy/App42MultiPlayerGamingSDK.jar')
 }

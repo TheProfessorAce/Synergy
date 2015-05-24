@@ -1,12 +1,13 @@
-package com.appwarp;
+package appwarp;
 
-import com.cookies.synergy.game.utils.constants;
 import com.shephertz.app42.gaming.multiplayer.client.command.WarpResponseResultCode;
 import com.shephertz.app42.gaming.multiplayer.client.events.AllRoomsEvent;
 import com.shephertz.app42.gaming.multiplayer.client.events.AllUsersEvent;
+import com.shephertz.app42.gaming.multiplayer.client.events.LiveRoomInfoEvent;
 import com.shephertz.app42.gaming.multiplayer.client.events.LiveUserInfoEvent;
 import com.shephertz.app42.gaming.multiplayer.client.events.MatchedRoomsEvent;
 import com.shephertz.app42.gaming.multiplayer.client.events.RoomEvent;
+import com.shephertz.app42.gaming.multiplayer.client.listener.RoomRequestListener;
 import com.shephertz.app42.gaming.multiplayer.client.listener.ZoneRequestListener;
 
 public class ZoneListener implements ZoneRequestListener{
@@ -31,32 +32,32 @@ public class ZoneListener implements ZoneRequestListener{
 	@Override
 	public void onDeleteRoomDone (RoomEvent arg0) {
 		
-		
 	}
 
 	@Override
 	public void onGetAllRoomsDone (AllRoomsEvent arg0) {
-		constants.roomDataList = arg0.getRoomIds();
+
+		callBack.onGetAllRooms(arg0);
 	}
 
 	@Override
 	public void onGetLiveUserInfoDone (LiveUserInfoEvent arg0) {
-		
+
 	}
 
 	@Override
 	public void onGetMatchedRoomsDone (MatchedRoomsEvent me) {
-		
 	}
 
 	@Override
 	public void onGetOnlineUsersDone (AllUsersEvent arg0) {
-		constants.playerList = arg0.getUserNames();
+
 	}
 
 	@Override
 	public void onSetCustomUserDataDone (LiveUserInfoEvent arg0) {
-
+		
+		
 	}
 	
 
