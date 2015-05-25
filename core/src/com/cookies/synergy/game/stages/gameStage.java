@@ -1,7 +1,5 @@
 package com.cookies.synergy.game.stages;
 
-import appwarp.WarpController;
-import appwarp.WarpListener;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -26,7 +24,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.cookies.synergy.game.actors.Charge;
 import com.cookies.synergy.game.actors.ChargeField;
@@ -41,6 +38,9 @@ import net.dermetfan.gdx.graphics.g2d.Box2DSprite;
 import net.dermetfan.gdx.physics.box2d.Box2DMapObjectParser;
 
 import java.util.Random;
+
+import box2dLight.PointLight;
+import box2dLight.RayHandler;
 
 public class gameStage extends Stage implements ContactListener {
 
@@ -100,7 +100,7 @@ public class gameStage extends Stage implements ContactListener {
 
     private OrthogonalTiledMapRenderer mapRenderer;
     private TiledMap map;
-    private Box2DMapObjectParser parser = new Box2DMapObjectParser((1/8f));
+    private Box2DMapObjectParser parser = new Box2DMapObjectParser((1/16f));
     private boolean debug;
 
     private BitmapFont font;
@@ -137,6 +137,11 @@ public class gameStage extends Stage implements ContactListener {
     private float angle = 0f;
 
     private boolean aintFirst = false;
+
+    private RayHandler rayHandler;
+    private PointLight pointLight;
+    private float lightX, lightY = 0;
+    private Vector2 spawnPoint;
 
     public gameStage(Game game) {
         this.game = game;
@@ -218,6 +223,14 @@ public class gameStage extends Stage implements ContactListener {
         world = worldUtils.createWorld();
         world.setContactListener(this);
 
+        rayHandler = new RayHandler(world);
+        rayHandler.setShadows(true);
+        rayHandler.setLightMapRendering(true);
+        rayHandler.setAmbientLight(0.5f);
+        rayHandler.setCulling(true);
+        rayHandler.setBlur(true);
+        pointLight = new PointLight(rayHandler, 256, Color.WHITE, 50f, lightX, lightY);
+
         setupMap();
         setupRunner();
 
@@ -233,15 +246,21 @@ public class gameStage extends Stage implements ContactListener {
     }
 
     private void setupMap() {
-        map = assetManager.manager.get(constants.LEVEL1_MAP);
+        map = assetManager.manager.get(constants.LEVEL2_MAP);
         renderer = new Box2DDebugRenderer();
         parser.load(world, map);
+
+        spawnPoint = new Vector2(parser.getBodies().get("spawn").getPosition().x, parser.getBodies().get("spawn").getPosition().y);
+        System.out.println(parser.getBodies().get("spawn").getPosition());
+        world.destroyBody(parser.getBodies().get("spawn"));
+
         mapRenderer = new OrthogonalTiledMapRenderer(map, parser.getUnitScale());
 
         Random generator = new Random();
 
-        for(int x=0;x<constants.NUMBER_OF_POWERUPS_1;x++) {
-            setupPowerUps(parser.getBodies().get(x+"").getPosition().x, parser.getBodies().get(x+"").getPosition().y, generator.nextInt(3));
+        for(int x=0;x<constants.NUMBER_OF_POWERUPS_2;x++) {
+            setupPowerUps(parser.getBodies().get(x + "").getPosition().x, parser.getBodies().get(x + "").getPosition().y, generator.nextInt(3));
+            world.destroyBody(parser.getBodies().get(x+""));
         }
     }
 
@@ -252,7 +271,8 @@ public class gameStage extends Stage implements ContactListener {
     }
 
     private void setupRunner() {
-        runner = new Runner(worldUtils.createRunner(world, parser.getBodies().get("spawn").getPosition().x, parser.getBodies().get("spawn").getPosition().y, RunnerMode));
+        System.out.println(spawnPoint);
+        runner = new Runner(worldUtils.createRunner(world, spawnPoint.x, spawnPoint.y, RunnerMode));
         addActor(runner);
     }
 
@@ -392,7 +412,7 @@ public class gameStage extends Stage implements ContactListener {
         countdown.remove();
         startButton.remove();
         helpButton.remove();
-        runner.getBody().setTransform(parser.getBodies().get("spawn").getPosition().x, parser.getBodies().get("spawn").getPosition().y, runner.getBody().getAngle());
+        runner.getBody().setTransform(spawnPoint.x, spawnPoint.y, runner.getBody().getAngle());
         hudStage.addActor(text);
         hudStage.addActor(text2);
         hudStage.addActor(text3);
@@ -500,16 +520,38 @@ public class gameStage extends Stage implements ContactListener {
 
     private void updateRunner() {
         worldUtils.updateBall(runner, RunnerMode);
+        switch (RunnerMode) {
+            case 0:
+                pointLight.setColor(Color.WHITE);
+                break;
+            case 1:
+                pointLight.setColor(Color.RED);
+                break;
+            case 2:
+                pointLight.setColor(Color.BLUE);
+                break;
+        }
     }
 
     private void followPlayer() {
+        lightX = runner.getPosition().x;
+        lightY = runner.getPosition().y;
+
+        pointLight.setPosition(lightX, lightY);
+
         camera.position.set(runner.getPosition().x, runner.getPosition().y, 0f);
         camera.update();
     }
 
     private void drawSprites() {
+        rayHandler.setCombinedMatrix(camera.combined);
+        rayHandler.updateAndRender();
+
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
+        if(constants.lightningActivate) {
+            runner.drawLine(batch);
+        }
         Box2DSprite.draw(batch, world);
         batch.end();
 
@@ -663,6 +705,7 @@ public class gameStage extends Stage implements ContactListener {
         mapRenderer.dispose();
         map.dispose();
         assetManager.dispose();
+        rayHandler.dispose();
     }
 
     @Override
@@ -717,8 +760,9 @@ public class gameStage extends Stage implements ContactListener {
 
     private void finish() {
         if(toBeTransferred.size>=1) {
-            toBeTransferred.first().setTransform(parser.getBodies().get("spawn").getPosition().x, parser.getBodies().get("spawn").getPosition().y, toBeTransferred.first().getAngle());
+            toBeTransferred.first().setTransform(spawnPoint.x, spawnPoint.y, toBeTransferred.first().getAngle());
             toBeTransferred.clear();
+            System.out.println(spawnPoint);
             System.out.println("Finish!");
             lap++;
         }

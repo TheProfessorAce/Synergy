@@ -36,6 +36,9 @@ public class worldUtils {
         box2DSprite.setAdjustSize(true);
         fixtureDef.shape = shape;
         fixtureDef.isSensor = true;
+        fixtureDef.filter.categoryBits = constants.IGNORE;
+        fixtureDef.filter.groupIndex = constants.IGNORE;
+        fixtureDef.filter.maskBits = constants.IGNORE;
         Fixture fixture = body.createFixture(fixtureDef);
         fixture.setSensor(true);
         fixture.setUserData(box2DSprite);
@@ -61,6 +64,9 @@ public class worldUtils {
         fixtureDef.shape = shape;
         fixtureDef.friction = 1f;
         fixtureDef.restitution = 0.5f;
+        fixtureDef.filter.categoryBits = constants.IGNORE;
+        fixtureDef.filter.groupIndex = constants.IGNORE;
+        fixtureDef.filter.maskBits = constants.IGNORE;
         Fixture fixture = body.createFixture(fixtureDef);
         body.resetMassData();
         fixture.setUserData(box2DSprite);
@@ -90,6 +96,9 @@ public class worldUtils {
         Fixture fixture = body.createFixture(fixtureDef);
         fixture.setSensor(true);
         fixture.setUserData(box2DSprite);
+        fixtureDef.filter.categoryBits = constants.IGNORE;
+        fixtureDef.filter.groupIndex = constants.IGNORE;
+        fixtureDef.filter.maskBits = constants.IGNORE;
         body.setUserData(new chargeUserData());
         shape.dispose();
         return body;
@@ -123,6 +132,9 @@ public class worldUtils {
         fixtureDef.density = constants.CHARGE_DENSITY;
         fixtureDef.shape = fieldShape;
         fixtureDef.isSensor = true;
+        fixtureDef.filter.categoryBits = constants.IGNORE;
+        fixtureDef.filter.groupIndex = constants.IGNORE;
+        fixtureDef.filter.maskBits = constants.IGNORE;
         Fixture fixture = field.createFixture(fixtureDef);
         fixture.setUserData(box2DSprite);
         field.setUserData(new chargeFieldUserData());

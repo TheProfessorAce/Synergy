@@ -10,8 +10,8 @@ import com.badlogic.gdx.math.Vector2;
 
 public class GFX {
 
-    private static float thickness = 3f;
-    private static int numberOfBolts = 3;
+    private static float thickness = 0.5f;
+    private static int numberOfBolts = 1;
 
     private static Vector2 tempSphereVector = new Vector2(0,0);
 
@@ -68,9 +68,7 @@ public class GFX {
     }
 
     public static void drawChainLightning(SpriteBatch batch, Vector2[] points, float thickness, int numberOfBolts, Color colourA, Color colourB) {
-        for (int i = 0; i < points.length - 1; i++) {
-            drawP2PLightning(batch, points[i].x, points[i].y, points[i+1].x, points[i+1].y, MathUtils.random(60f, 140f), MathUtils.random(0.8f, 3.8f), thickness, numberOfBolts, colourA, colourB);
-        }
+        drawP2PLightning(batch, points[0].x, points[0].y, points[1].x, points[1].y, MathUtils.random(60f, 140f), MathUtils.random(0.8f, 3.8f), thickness, numberOfBolts, colourA, colourB);
     }
 
     private static void drawLine(SpriteBatch batch, float x1, float y1, float x2, float y2, float thickness, Texture tex) {

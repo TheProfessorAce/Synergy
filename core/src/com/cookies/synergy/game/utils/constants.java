@@ -80,6 +80,10 @@ public class constants {
     public static final String BACKGROUND = "tilemap/bg.png";
     public static final String WHITE = "white.png";
 
+    public static boolean lightningActivate = false;
+    public static final short IGNORE = 0x0001;
+    public static final short NOTHING = -0x0001;
+
     //-------------------MULTIPLAYER0----------------------//
 
     public static String[] roomDataList;
