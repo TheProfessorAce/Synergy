@@ -78,6 +78,7 @@ public class constants {
     public static final String HELP = "buttons/tutorial.png";
 
     public static final String BACKGROUND = "tilemap/bg.png";
+    public static final String WHITE = "white.png";
 
     //-------------------MULTIPLAYER0----------------------//
 

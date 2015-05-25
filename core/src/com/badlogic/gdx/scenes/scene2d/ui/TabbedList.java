@@ -61,6 +61,7 @@ import com.badlogic.gdx.utils.Pools;
  * </p>
  * <code>TabbedList</code> was derived from the original <code>List</code> class of LibGdx.
  * */
+
 public class TabbedList extends Widget implements Cullable {
 
 	private TabbedListStyle style;

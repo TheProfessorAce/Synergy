@@ -45,7 +45,7 @@ public class WarpController {
     public static List<String> roomCreator = new ArrayList<String>();
     public static List<String> maxPlayer = new ArrayList<String>();
 
-    public static int ROOMS = 0;
+    public static int numPlayers = 0;
 	
 	// Game state constants
 	public static final int WAITING = 1;
@@ -210,9 +210,15 @@ public class WarpController {
 	
 	public void onGetLiveRoomInfo(LiveRoomInfoEvent e){
         if(!roomName.contains(e.getProperties().get("name").toString())) {
+            if(e.getJoinedUsers()!=null) {
+                numPlayers = e.getJoinedUsers().length;
+            }
+            else {
+                numPlayers = 0;
+            }
             roomName.add(e.getProperties().get("name").toString());
             roomCreator.add(e.getProperties().get("creator").toString());
-            maxPlayer.add(e.getProperties().get("maxPlayer").toString());
+            maxPlayer.add(numPlayers+"/"+e.getProperties().get("maxPlayer").toString());
 			log("Nakasulod ko!");
         }
         log("WHYY");
