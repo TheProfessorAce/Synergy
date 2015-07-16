@@ -53,7 +53,8 @@ public class constants {
     public static final String NEGPOWERUP_SPRITE = "powerups/negPowerUp.png";
     public static final String NEUTPOWERUP_SPRITE = "powerups/neutPowerUp.png";
 
-    public static final float BUTTON_SIZE = 100f;
+    public static final float MAINBUTTON_SIZE = 100f;
+    public static final float BUTTON_SIZE = 50f;
     public static final float BUTTON2_SIZE = 75f;
 
     public static final String LEVEL1_MAP = "maps/level1.tmx";
@@ -77,12 +78,17 @@ public class constants {
     public static final String HELPDOWN = "buttons/helpdown.png";
     public static final String HELP = "buttons/tutorial.png";
 
+    public static final String LEVELUP = "buttons/levelup.png";
+    public static final String LEVELDOWN = "buttons/leveldown.png";
+
     public static final String BACKGROUND = "tilemap/bg.png";
     public static final String WHITE = "white.png";
+    public static final String OPACITY = "opacity.png";
 
     public static boolean lightningActivate = false;
-    public static final short IGNORE = 0x0001;
-    public static final short NOTHING = -0x0001;
+    public static final short IGNORE = 0x1;
+    public static final short NOTHING = 0x1 << 1;
+    public static final short LIGHT = 0x1 << 2;
 
     //-------------------MULTIPLAYER0----------------------//
 

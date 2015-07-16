@@ -1,6 +1,5 @@
 package com.cookies.synergy.game;
 
-import appwarp.WarpController;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.FPSLogger;
 import com.cookies.synergy.game.screens.loadingScreen;
@@ -24,7 +23,6 @@ public class main extends Game {
     @Override
     public void dispose() {
         super.dispose();
-        WarpController.getInstance().stopApp();
         constants.prefs.remove("sessionid");
         constants.prefs.flush();
     }

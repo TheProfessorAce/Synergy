@@ -8,7 +8,6 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.cookies.synergy.game.screens.gameScreen;
-import com.cookies.synergy.game.screens.multiplayerScreen;
 import com.cookies.synergy.game.utils.assetManager;
 import com.cookies.synergy.game.utils.constants;
 
@@ -51,7 +50,6 @@ public class loadingStage extends Stage{
     public void act(float delta) {
         super.act(delta);
         if(assetManager.isLoaded()) {
-            //main.setScreen(new multiplayerScreen(main));
             main.setScreen(new gameScreen(main));
         }
     }
