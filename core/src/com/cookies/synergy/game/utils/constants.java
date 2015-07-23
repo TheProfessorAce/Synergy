@@ -1,20 +1,20 @@
 package com.cookies.synergy.game.utils;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.math.Vector2;
+import com.cookies.synergy.game.screens.gameScreen;
+import com.cookies.synergy.game.stages.loadingStage;
 
 public class constants {
 
 
-    public static int gameState = 0;
+    public static Game thisGame;
     public static int numberOfLaps = 3;
     public static float COOLDOWN_TIME = 1f;
 
     public static Preferences prefs = Gdx.app.getPreferences("SynergyPrefs");
-
-    public static String appKey = "dbc066469b6caaf9f748d71ef066274fcd2a19df84c4851f827949bf93d944b2";
-    public static String secretKey="68095c60cc1fa72d4326be4675097765c6ba16ff752a7d5ac2cbf075d8530d9f";
 
     public static final int appWidth = 960;
     public static final int appHeight = 544;
@@ -22,7 +22,6 @@ public class constants {
     public static final float pixelsPerMeter = (float) 16*scale;
 
     public static final boolean DEBUG_ACTIVATE = false;
-    public static final boolean showLog = false;
 
     public static final Vector2 WORLD_GRAVITY = new Vector2(0, -10);
 
@@ -36,6 +35,8 @@ public class constants {
     public static float CHARGE_DENSITY = 1f;
     public static final int CHARGE_MAXIMUM = 3;
     public static final boolean CHARGE_TRANSPARENT = true;
+
+    public static final String LOGO = "logo.png";
 
     public static final String POSRUNNER_SPRITE = "ball/posBall.png";
     public static final String NEGRUNNER_SPRITE = "ball/negBall.png";
@@ -59,8 +60,13 @@ public class constants {
 
     public static final String LEVEL1_MAP = "maps/level1.tmx";
     public static final String LEVEL2_MAP = "maps/level2.tmx";
+
+    public static String MAP_USED = LEVEL1_MAP; //default start
+
     public static final int NUMBER_OF_POWERUPS_1 = 5;
     public static final int NUMBER_OF_POWERUPS_2 = 20;
+
+    public static boolean introDone = false;
 
     public static final String FONT = "fonts/Reckoner_Bold.ttf";
 
@@ -90,8 +96,4 @@ public class constants {
     public static final short NOTHING = 0x1 << 1;
     public static final short LIGHT = 0x1 << 2;
 
-    //-------------------MULTIPLAYER0----------------------//
-
-    public static String[] roomDataList;
-    public static String[] playerList;
 }

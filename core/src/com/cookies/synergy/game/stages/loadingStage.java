@@ -13,7 +13,7 @@ import com.cookies.synergy.game.utils.constants;
 
 public class loadingStage extends Stage{
 
-    private Game main;
+    public static Game main;
     private BitmapFont font;
     private FreeTypeFontGenerator generator;
     private FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
@@ -50,7 +50,7 @@ public class loadingStage extends Stage{
     public void act(float delta) {
         super.act(delta);
         if(assetManager.isLoaded()) {
-            main.setScreen(new gameScreen(main));
+            main.setScreen(new gameScreen(main, constants.LEVEL1_MAP));
         }
     }
 

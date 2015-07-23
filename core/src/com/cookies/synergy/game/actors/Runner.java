@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.utils.Pool;
 import com.cookies.synergy.game.box2d.runnerUserData;
 import com.cookies.synergy.game.utils.assetManager;
 import com.cookies.synergy.game.utils.constants;
@@ -84,6 +85,5 @@ public class Runner extends gameActor {
     public Body getBody() {
         return body;
     }
-
 
 }

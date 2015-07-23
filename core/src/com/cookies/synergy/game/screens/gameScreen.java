@@ -5,13 +5,14 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.cookies.synergy.game.stages.gameStage;
+import com.cookies.synergy.game.utils.constants;
 
 public class gameScreen implements Screen {
 
     private gameStage stage;
 
-    public gameScreen(Game game) {
-        stage = new gameStage(game);
+    public gameScreen(Game game, String level) {
+        stage = new gameStage(game, level);
     }
 
     @Override

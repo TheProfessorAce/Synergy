@@ -14,7 +14,7 @@ ADDED from AndroidManifest.xml:2:1
 uses-sdk
 ADDED from AndroidManifest.xml:7:5
 	android:targetSdkVersion
-		ADDED from AndroidManifest.xml:7:41
+		ADDED from AndroidManifest.xml:7:42
 	android:minSdkVersion
 		ADDED from AndroidManifest.xml:7:15
 uses-permission#android.permission.INTERNET

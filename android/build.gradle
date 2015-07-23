@@ -1,6 +1,6 @@
 android {
     buildToolsVersion "22.0.1"
-    compileSdkVersion 22
+    compileSdkVersion 17
     sourceSets {
         main {
             manifest.srcFile 'AndroidManifest.xml'
@@ -12,6 +12,10 @@ android {
         }
 
         instrumentTest.setRoot('tests')
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_6
+        targetCompatibility JavaVersion.VERSION_1_6
     }
 }
 // needed to add JNI shared libraries to APK when compiling on CLI
