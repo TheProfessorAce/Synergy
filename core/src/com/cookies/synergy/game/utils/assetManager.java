@@ -63,9 +63,13 @@ public class assetManager {
         manager.load(constants.OPACITY, Texture.class);
         manager.load(constants.LOGO, Texture.class);
 
+        //TODO: STEP 2 MAP INSERT HERE
         manager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
         manager.load(constants.LEVEL1_MAP, TiledMap.class);
         manager.load(constants.LEVEL2_MAP, TiledMap.class);
+        manager.load(constants.LEVEL3_MAP, TiledMap.class);
+
+        //ADDMAP
 
         allLoaded = true;
 

@@ -4,6 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
@@ -26,7 +27,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
-import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.cookies.synergy.game.actors.Charge;
 import com.cookies.synergy.game.actors.ChargeField;
@@ -41,7 +41,6 @@ import com.cookies.synergy.game.utils.worldUtils;
 import net.dermetfan.gdx.graphics.g2d.Box2DSprite;
 import net.dermetfan.gdx.physics.box2d.Box2DMapObjectParser;
 
-import java.util.HashMap;
 import java.util.Random;
 
 import box2dLight.PointLight;
@@ -235,12 +234,18 @@ public class gameStage extends Stage implements ContactListener {
             hudStage.addActor(text4);
         }
 
+        //TODO: STEP 3
         if(constants.MAP_USED == constants.LEVEL1_MAP) {
             mapName.setText("Easiest Map");
         }
         else if(constants.MAP_USED == constants.LEVEL2_MAP) {
             mapName.setText("Tricky one Map");
         }
+        else if(constants.MAP_USED == constants.LEVEL3_MAP) {
+            mapName.setText("Pattern Map");
+        }
+
+        //ADDNAME
 
         if(constants.introDone) {
             hudStage.addActor(mapName);
@@ -298,6 +303,7 @@ public class gameStage extends Stage implements ContactListener {
         charged = assetManager.manager.get(constants.BLURP, Sound.class);
     }
 
+    //TODO: STEP 4
     private void changeMap(String level) {
         constants.MAP_USED = level;
         if(level == constants.LEVEL1_MAP) {
@@ -306,8 +312,15 @@ public class gameStage extends Stage implements ContactListener {
         else if (level == constants.LEVEL2_MAP) {
             game.setScreen(new gameScreen(game, constants.LEVEL2_MAP));
         }
+        else if (level == constants.LEVEL3_MAP) {
+            game.setScreen(new gameScreen(game, constants.LEVEL3_MAP));
+        }
+
+        //ADDSCR
+
     }
 
+    //TODO: STEP 5 then add number of powerups to constants
     private void setupMap (String level) {
         if (level == constants.LEVEL1_MAP) {
             parser = new Box2DMapObjectParser((1 / 8f));
@@ -317,6 +330,13 @@ public class gameStage extends Stage implements ContactListener {
             parser = new Box2DMapObjectParser((1 / 16f));
             numOfPowerUps = constants.NUMBER_OF_POWERUPS_2;
         }
+        else if (level == constants.LEVEL3_MAP) {
+            parser = new Box2DMapObjectParser((1 / 16f));
+            numOfPowerUps = constants.NUMBER_OF_POWERUPS_3;
+        }
+
+        //ADDSIZE
+
         map = assetManager.manager.get(level);
 
         renderer = new Box2DDebugRenderer();
@@ -328,10 +348,11 @@ public class gameStage extends Stage implements ContactListener {
         spawnPoint = new Vector2(parser.getBodies().get("spawn").getPosition().x, parser.getBodies().get("spawn").getPosition().y);
         world.destroyBody(parser.getBodies().get("spawn"));
 
-        if (level == constants.LEVEL1_MAP) {
+        //TODO: STEP 6
+        if (level == constants.LEVEL1_MAP || level == constants.LEVEL3_MAP /*ADDCOND1*/) {
             parser.getFixtures().get("ground").setFilterData(worldFilter);
         }
-        else if (level == constants.LEVEL2_MAP) {
+        else if (level == constants.LEVEL2_MAP /*ADDCOND2*/) {
             parser.getFixtures().get("ground1").setFilterData(worldFilter);
             parser.getFixtures().get("ground2").setFilterData(worldFilter);
         }
@@ -578,10 +599,15 @@ public class gameStage extends Stage implements ContactListener {
 
         if(numOfCharges >= 1) {
             for(int x=0;x<numOfCharges;x++) {
-                cooldownTime[x] += Gdx.graphics.getDeltaTime();
-                if(cooldownTime[x] >= constants.COOLDOWN_TIME) {
-                    removeCharges();
-                    cooldownTime[x] = 0;
+                try {
+                    cooldownTime[x] += Gdx.graphics.getDeltaTime();
+                    if (cooldownTime[x] >= constants.COOLDOWN_TIME) {
+                        removeCharges();
+                        cooldownTime[x] = 0;
+                    }
+                }
+                catch (IndexOutOfBoundsException e) {
+                    chargeAllowed = false;
                 }
             }
         }
@@ -799,10 +825,15 @@ public class gameStage extends Stage implements ContactListener {
         });
     }
 
+    //TODO: STEP 7
     private void levelSelect() {
         if(constants.MAP_USED == constants.LEVEL1_MAP) {
             changeMap(constants.LEVEL2_MAP);
         }
+        else if(constants.MAP_USED == constants.LEVEL2_MAP) {
+            changeMap(constants.LEVEL3_MAP);
+        }
+        //ADDSEL
         else {
             changeMap(constants.LEVEL1_MAP);
         }
@@ -876,7 +907,7 @@ public class gameStage extends Stage implements ContactListener {
                 Gdx.app.exit();
             }
         }
-        return false;
+        return super.keyDown(keycode);
     }
 
     @Override

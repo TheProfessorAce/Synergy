@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="32" tileheight="32" nextobjectid="26">
+ <tileset firstgid="1" name="Tileset" tilewidth="32" tileheight="32">
+  <tile id="0">
+   <image width="32" height="32" source="../tilemap/bg.png"/>
+  </tile>
+  <tile id="1">
+   <image width="32" height="32" source="../tilemap/finishLine.png"/>
+  </tile>
+  <tile id="2">
+   <image width="32" height="32" source="../tilemap/tile.png"/>
+  </tile>
+ </tileset>
+ <layer name="Tile Layer 1" width="50" height="50">
+  <data encoding="base64" compression="zlib">
+   eJzt1DEOgDAMBMFA/v9nWlqkSHcWU2xreQp7r7W2FOgqi6Mrjq7+7mj7jekdOTi+zp5w5+m9OTg4OhypP83BkS591/4VBwdHYxxdcZyZPeHO03tzcHB0OFJ/moMjXfqu390c8d05OJodE3oAq2cTww==
+  </data>
+ </layer>
+ <objectgroup name="box2d">
+  <object id="1" name="ground" type="object" x="287" y="95">
+   <polyline points="0,0 1153,1 1153,513 289,513 289,641 1153,641 1153,1153 289,1153 289,1281 1153,1281 1153,1473 1,1473 1,961 865,961 865,833 1,833 1,321 865,321 865,193 1,193 1,1"/>
+  </object>
+  <object id="2" name="environment" type="object" x="1600" y="0">
+   <polyline points="0,0 0,1600 -1600,1600 -1600,0 0,0"/>
+  </object>
+  <object id="4" name="finish" type="object" x="1408" y="1378.67" width="32" height="186.667">
+   <properties>
+    <property name="isSensor" value="true"/>
+   </properties>
+  </object>
+  <object id="5" name="spawn" type="body" x="381.333" y="169.333">
+   <properties>
+    <property name="isSensor" value="true"/>
+   </properties>
+  </object>
+  <object id="9" name="0" type="body" x="1218.67" y="348">
+   <properties>
+    <property name="isSensor" value="true"/>
+   </properties>
+  </object>
+  <object id="13" name="1" type="body" x="1362.67" y="348">
+   <properties>
+    <property name="isSensor" value="true"/>
+   </properties>
+  </object>
+  <object id="14" name="2" type="body" x="514.667" y="665.333">
+   <properties>
+    <property name="isSensor" value="true"/>
+   </properties>
+  </object>
+  <object id="19" name="3" type="body" x="360" y="665.333">
+   <properties>
+    <property name="isSensor" value="true"/>
+   </properties>
+  </object>
+  <object id="20" name="4" type="body" x="1208" y="986.667">
+   <properties>
+    <property name="isSensor" value="true"/>
+   </properties>
+  </object>
+  <object id="21" name="5" type="body" x="1346.67" y="986.667">
+   <properties>
+    <property name="isSensor" value="true"/>
+   </properties>
+  </object>
+  <object id="22" name="6" type="body" x="514.667" y="1320">
+   <properties>
+    <property name="isSensor" value="true"/>
+   </properties>
+  </object>
+  <object id="23" name="7" type="body" x="394.667" y="1320">
+   <properties>
+    <property name="isSensor" value="true"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>

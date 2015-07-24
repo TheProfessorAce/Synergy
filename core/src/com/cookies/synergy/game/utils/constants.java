@@ -58,13 +58,20 @@ public class constants {
     public static final float BUTTON_SIZE = 50f;
     public static final float BUTTON2_SIZE = 75f;
 
+    //TODO: STEP 1 MAP INSERT HERE
     public static final String LEVEL1_MAP = "maps/level1.tmx";
     public static final String LEVEL2_MAP = "maps/level2.tmx";
+    public static final String LEVEL3_MAP = "maps/level3.tmx";
+
+    //ADDLEVEL
 
     public static String MAP_USED = LEVEL1_MAP; //default start
 
     public static final int NUMBER_OF_POWERUPS_1 = 5;
     public static final int NUMBER_OF_POWERUPS_2 = 20;
+    public static final int NUMBER_OF_POWERUPS_3 = 8;
+
+    //ADDNUMBER
 
     public static boolean introDone = false;
 
